@@ -8,25 +8,28 @@
     <link rel="stylesheet" href="estilo/style.css">
 </head>
 <body>
+
     <div class="content">
         <h1>Formulário</h1>
-        <form action="#">
+        <form action="#" id="form">
             <div>
-                <input type="text" placeholder="Digite seu nome" class="inputs">
+                <input type="text" placeholder="Digite seu nome" class="inputs required" oninput="nameValidate()">
                 <span class="span-required">Nome deve ter no mínimo 3 caracteres</span>
             </div>
             <div>
-                <input type="email" placeholder="Digite seu email" class="inputs">
+                <input type="email" placeholder="Digite seu email" class="inputs required" oninput="emailValidate()">
                 <span class="span-required">Digite um email válido</span>
             </div>
-            <div>
-                <input type="password" placeholder="Digite sua senha" class="inputs">
-                <span class="span-required">Nome deve ter no mínimo 8 caracteres</span>
+            <div class="group">
+                <input type="password" placeholder="Digite sua senha" class="inputs required password" oninput="mainPasswordValidate()">
+                <button type="button" class="button">Exibir</button>
             </div>
-            <div>
-                <input type="password" placeholder="Repita sua senha" class="inputs">
-                <span class="span-required">Senha deve ser compatível com a anterior</span>
+            <span class="span-required">Senha deve ter no mínimo 8 caracteres</span>
+            <div class="group">
+                <input type="password" placeholder="Repita sua senha" class="inputs required password2" oninput="comparePassword()">
+                <button type="button" class="buttons">Exibir</button>
             </div>
+            <span class="span-required">Senha deve ser compatível com a anterior</span>
             <textarea name="descricao" id="descricao" class="inputs" cols="30" rows="10" placeholder="Conte um pouco sobre você..."></textarea>
             <p>Sexo: </p>
             <div class="box-select">
@@ -65,5 +68,87 @@
             <button type="submit">Enviar</button>
         </form>
     </div>
+    <script>
+        const form = document.getElementById('form');
+        const campos = document.querySelectorAll('.required');
+        const spans = document.querySelectorAll('.span-required');
+        const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        let input = document.querySelector('.password')
+        let inputs = document.querySelector('.password2')
+        const button = document.querySelector('.button');
+        const buttons = document.querySelector('.buttons');
+
+        form.addEventListener('submit', (event) =>{
+            event.preventDefault();
+            nameValidate();
+            emailValidate();
+            mainPasswordValidate();
+            comparePassword();
+        });
+
+        function setError(index){
+            campos[index].style.border = '2px solid #e63636';
+            spans[index].style.display = 'block';
+        }
+
+        function removeError(index){
+            campos[index].style.border = '';
+            spans[index].style.display = 'none';
+        }
+
+        function nameValidate(){
+            if(campos[0].value.length < 3){
+                setError(0);
+            }else{
+                removeError(0);
+            }
+        }
+
+        function emailValidate(){
+            if(emailRegex.test(campos[1].value)){
+                removeError(1);
+            }else{
+                setError(1);
+            }
+        }
+
+        function mainPasswordValidate(){
+            if(campos[2].value.length < 8){
+                setError(2);
+            }else{
+                removeError(2);
+                comparePassword();
+            }
+        }
+
+        function comparePassword(){
+            if(campos[2].value == campos[3].value && campos[3].value.length >=8){
+                removeError(3);
+            }else{
+                setError(3);
+            }
+        }
+
+        button.addEventListener('click', () => {
+            if (input.type == 'password'){
+                input.type = 'text';
+                button.innerText = 'Ocultar';
+            }else{
+                input.type = 'password';
+                button.innerText = 'Exibir';
+            }
+        });
+
+        buttons.addEventListener('click', () => {
+            if (inputs.type == 'password'){
+                inputs.type = 'text';
+                buttons.innerText = 'Ocultar';
+            }else{
+                inputs.type = 'password';
+                buttons.innerText = 'Exibir';
+            }
+        });
+
+    </script>
 </body>
 </html>

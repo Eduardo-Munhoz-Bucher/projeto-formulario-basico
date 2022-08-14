@@ -24,16 +24,15 @@ body{
 
 .content{
     background-color: var(--color-dark2);
-    padding: 2em;
+    padding: 1.3em;
     border-radius: 1em;
     min-width: 30%;
     overflow: auto; /*Possibilita rolagem dentro da div*/
 }
 
 h1{
-    margin-bottom: 1em;
+    margin-bottom: .4em;
     text-align: center;
-    font-weight: bold;
 }
 
 .content form{
@@ -43,7 +42,33 @@ h1{
 }
 
 .span-required{
+    font-size: 12px;
+    margin: 3px 0 0 1px;
+    color: var(--color-red);
     display: none;
+}
+
+.group{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.button, .buttons {
+    cursor: pointer;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 20%;
+    text-transform: capitalize;
+    padding: 8px 6px;
+    background-color: var(--color-dark1);
+    color: var(--color-white);
+    border: none;
+}
+
+.password, .password2{
+    border-radius: 8px 0 0 8px !important; 
 }
 
 .inputs{
@@ -90,6 +115,7 @@ button[type="submit"]:hover{
     .box-select{
         flex-direction: column;
         gap: 5px;
+        font-size: .8em;
     }
 }
 
